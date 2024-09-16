@@ -42,7 +42,9 @@ const Game = () => {
 
   const [flippedCards, setFlippedCards] = useState ([]);
 
-  const [chances, setChances] = useState(6)
+  const playerChances = 100
+
+  const [chances, setChances] = useState(100)
 
   const result = cards.filter((card) => card.isFLipped).length;
 
@@ -63,7 +65,7 @@ const Game = () => {
       setTimeout(() => {
         const [firstCard] = flippedCards;
 
-        if(firstCard.vaslue !== clickedCard.value) {
+        if(firstCard.value !== clickedCard.value) {
           const resetCards = cards.map((card) => {
            return card.id === firstCard.id || card.id === clickedCard.id
             ? { ...card, isFlipped: false}
@@ -79,11 +81,19 @@ const Game = () => {
     }
   }
 
+  const resetGame = () => {
+    setChances(playerChances);
+
+    setFlippedCards([])
+    setCards(generateCards())
+    
+  }
+
   return (
   <div className="game">
     <Board cards={cards} onCardClick={handleCardClick}/>
     {chances === 0 ?(<p>Suas tentativas acabaram</p>) : result === cards.length ? (<h2>Parabéns você ganhou</h2>) : (<p>Você possui {chances} tentativa(s)</p>)}
-    <button className='btn'>Reiniciar o jogo</button>
+    <button className='btn' onClick={resetGame}>Reiniciar o jogo</button>
   </div>
   )
 }
