@@ -1,8 +1,14 @@
-import React from 'react'
+import Card from "./Card";
 
-const Board = () => {
+const Board = ({ cards }) => {
   return (
-    <div>Board</div>
+    <div className="board">
+      {cards.map((card) => (
+        <Card key={card.id} card={card} />
+      ))}
+
+
+    </div>
   )
 }
 
